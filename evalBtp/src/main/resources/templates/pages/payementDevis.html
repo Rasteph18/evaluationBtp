@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebar}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Payement devis</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div id="toast" class="hidden absolute top-4 right-5 rounded-md bg-red-200 text-red-800 py-2 px-5 max-w-md" th:text="${errorMessage}"></div> 
+
+        <div class="flex justify-center mb-6">
+            <h3>Payement devis</h3>
+        </div>
+        <div class="w-full flex justify-center">
+            <div class="form-card bg-white">
+                <form th:action="@{/payement/insert-payement-devis}" method="post">
+                    <input type="hidden" name="idDevis" th:value="${idDevis}">
+
+                    <div class="input-field">
+                        <label for="montant" class="label">Montant</label>
+                        <input type="number" class="input" name="montant" id="montant" required>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="datePayement" class="label">Date Payement</label>
+                        <input type="datetime-local" class="input" name="datePayement" id="datePayement" required>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button type="submit" class="btn">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

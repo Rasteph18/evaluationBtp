@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebarAdmin}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div class="flex justify-center mb-6">
+            <h3>Tableau de bord</h3>
+        </div>
+
+        <div class="flex justify-center mt-4">
+            <div class="">
+                <div class="flex justify-center">
+                    <h4>Montant Total des devis</h4>
+                </div>
+                <div class="flex justify-center mt-4">
+                    <h2 th:text="${#numbers.formatDecimal(montantTotalDevis, 0, 'COMMA', 2, 'POINT')}"></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full mt-6">
+            <div class="w-full flex justify-center">
+                <canvas id="barChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+
+
+        
+        <script th:inline="javascript">
+            // Données statiques du graphique en barres
+            var labels = ["Classe 1", "Classe 2", "Classe 3"];
+                var dataValues = [30, 25, 28];
+
+                var data = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nombre d\'élèves par classe',
+                        data: dataValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+                var options = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }
+                };
+
+                // Création du graphique en barres
+                var ctx = document.getElementById("barChart").getContext("2d");
+                var myBarChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data,
+                    options: options
+                });
+        </script>
+    </div>
+        
+</body>
+</html>

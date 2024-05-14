@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{classpath:/static/css/pdf.css}">
+    <title>Pdf devis</title>
+</head>
+<body>
+
+    <div class="">
+
+        <div class="">
+            <p>Type maison: <span style="font-weight: bold;" th:text="${detailsDevis.typeMaison}"></span></p>
+        </div>
+        
+        <div class="mt-4">
+            <p>Type finition: <span style="font-weight: bold;" th:text="${detailsDevis.typeFinition}"></span></p>
+        </div>
+        <div class="mt-4">
+            <p>Montant total: <span style="font-weight: bold;" th:text="${#numbers.formatDecimal(detailsDevis.montantTotal, 0, 'COMMA', 2, 'POINT')}"></span></p>
+        </div>
+        <div class="mt-4">
+            <p>Durée: <span style="font-weight: bold;" th:text="${detailsDevis.duree} + ' jours'"></span></p>
+        </div>
+        <div class="mt-4">
+            <p>Début travaux: <span style="font-weight: bold;" th:text="${#dates.format(detailsDevis.dateDebutTravaux, 'dd MMMM yyyy')}"></span></p>
+        </div>
+        <div class="mt-4">
+            <p>Fin travaux: <span style="font-weight: bold;" th:text="${#dates.format(detailsDevis.dateFinTravaux, 'dd MMMM yyyy')}"></span></p>
+        </div>
+    </div>
+
+    <div class="mt-4 text-center">
+        <div class="inline-block">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Désignation</th>
+                        <th>Unité</th>
+                        <th>Prix unitaire</td>
+                        <th>Quantité</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr th:each="travaux : ${detailsTravaux}">
+                        <td th:text="${travaux.code}"></td>
+                        <td th:text="${travaux.nomTravaux}"></td>
+                        <td th:text="${travaux.unite}"></td>
+                        <td th:text="${#numbers.formatDecimal(travaux.prixUnitaire, 0, 'COMMA', 2, 'POINT')}"></td>
+                        <td th:text="${travaux.quantite}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

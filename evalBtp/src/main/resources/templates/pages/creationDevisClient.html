@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebar}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Création devis client</title>
+</head>
+<body>
+    
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div id="toast" class="hidden absolute top-4 right-5 rounded-md bg-red-200 text-red-800 py-2 px-5 max-w-md" th:text="${errorMessage}"></div> 
+        <div class="flex justify-center mb-6">
+            <h3>Création nouveau devis</h3>
+        </div>
+
+
+        <div class="w-full flex justify-center">
+            <form th:action="@{/devis/insert-nouveau-devis}" method="post" class="w-full">
+                <div class="grid grid-cols-3 gap-3 space-y-4">
+                    <div class="max-w-sm rounded shadow-lg" th:each="maison : ${allMaison}">
+                        <div class="px-6 py-4">
+                          <div class="font-bold text-xl mb-2" th:text="${maison.nom}"></div>
+                          <div class="h-60 overflow-auto">
+                            <p class="text-gray-700 text-base" th:text="${maison.description}"></p>
+                          </div>
+                          <div class="flex justify-center">
+                            <p th:text="${#numbers.formatDecimal(maison.prix, 0, 'COMMA', 2, 'POINT')}"></p>
+                          </div>
+                        </div>
+                        <div class="px-6 pt-4 pb-2">
+                            <input type="radio" name="typeMaison" th:value="${maison.id}" class="w-80">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full mt-6 flex justify-center items-center">
+                    <div class="input-field mr-14">
+                        <label for="typeFinition" class="label">Finition</label>
+                        <select name="typeFinition" id="typeFinition" class="input">
+                            <option th:each="finition : ${allFinition}" th:value="${finition.id}" th:text="${finition.nom} + ' ' + ${finition.marge} + ' %'"></option>
+                        </select>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="dateDebut" class="label">Date début</label>
+                        <input type="date" name="dateDebut" id="dateDebut" class="input">
+                    </div>
+                </div>
+
+                <div class="button mt-6 flex justify-center">
+                    <button type="submit" class="btn">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

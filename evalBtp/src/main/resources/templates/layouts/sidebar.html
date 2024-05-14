@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="flex">
+        <!-- sidebar -->
+        <div class="fixed left-0 top-0 h-full w-64 p-4 bg-teal-600">
+            <div class="brand-logo">
+                <h3 class="flex items-center justify-center text-white underline decoration-wavy">BTP</h3>
+            </div>
+        
+            <div class="mt-6">
+                <ul>
+                    <li class="mb-1 group">
+                        <a href="" class="flex items-center py-2 px-4 text-gray-100 rounded-md hover:bg-teal-700 group-[.selected]:bg-teal-800 group-[.selected]:text-white sidebar-dropdown-toggle">
+                            <span class="text-sm font-normal">Devis</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-auto group-[.selected]:rotate-180">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>                          
+                        </a>
+                        <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+                            <li class="mb-4">
+                                <a th:href="@{/devis/liste-devis-client}" class="flex items-center text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>  
+                                    <span class="text-sm font-normal">Liste devis</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div layout:fragment="content">
+
+        </div>
+    </div>
+
+    <script th:src="@{/js/script.js}"></script>
+
+
+    <script th:if="${errorMessage}">
+        function showToast() {
+            var toast = document.getElementById("toast");
+            toast.classList.remove("hidden");
+            setTimeout(function() {
+                toast.classList.add("hidden");
+            }, 3000);
+        }
+
+        showToast()
+    </script>
+
+</body>
+</html>
+

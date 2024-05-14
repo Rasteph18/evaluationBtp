@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebar}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Details devis client</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div class="flex justify-center mb-6">
+            <h3>Liste de mes devis</h3>
+        </div>
+
+
+        <div class="w-full">
+            <div class="flex justify-end my-4 mr-6">
+                <a th:href="@{/devis/page-nouveau-devis-client}" class="btn flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                          
+                    <span>Nouveau devis</span>
+                </a>
+            </div>
+
+            <div class="flex justify-center">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type maison</th>
+                            <th>Type finition</th>
+                            <th>Date début travaux</th>
+                            <th>Date fin travaux</th>
+                            <th>Montant total</th>
+                            <th>Reste à payer</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="devis : ${allDevis}">
+                            <td th:text="${devis.typeMaison}"></td>
+                            <td th:text="${devis.typeFinition}"></td>
+                            <td th:text="${#dates.format(devis.dateDebutTravaux, 'dd MMMM yyyy')}"></td>
+                            <td th:text="${#dates.format(devis.dateFinTravaux, 'dd MMMM yyyy')}"></td>
+                            <td th:text="${#numbers.formatDecimal(devis.montantTotal, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(devis.restePayer, 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td class="flex space-x-5">
+                                <a th:href="@{/payement/page-payement-devis(idDevis=${devis.id})}" class="btn bg-orange-600 hover:bg-orange-700 focus:ring-orange-500">Payer</a>
+                                <a th:href="@{/devis/pdf-devis(idDevis=${devis.id})}" class="btn bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">Exporter pdf</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
