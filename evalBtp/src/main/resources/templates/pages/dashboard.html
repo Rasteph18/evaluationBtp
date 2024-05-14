@@ -23,48 +23,73 @@
             </div>
         </div>
 
+
+        <div class="mt-10 mb-7 flex justify-center">
+            <div class="w-80">
+                <form th:action="@{/devis/dashboard}" method="get" class="flex items-center justify-center">
+                    <div class="input-field">
+                        <label for="annee" class="label">Choisir année</label>
+                        <div class="flex">
+                            <select name="annee" id="annee" class="input">
+                                <option th:each="i : ${#numbers.sequence(1990, 2030)}" th:value="${i}" th:text="${i}" th:selected="${annee == i}"></option>
+                            </select>
+                            <button type="submit" class="btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>                              
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="w-full mt-6">
             <div class="w-full flex justify-center">
-                <canvas id="barChart" width="400" height="400"></canvas>
+                <canvas id="barChart" width="1000" height="500"></canvas>
             </div>
         </div>
 
 
+        <script th:src="@{/js/chart.umd.js}"></script>
         
+        <!-- bar -->
         <script th:inline="javascript">
-            // Données statiques du graphique en barres
-            var labels = ["Classe 1", "Classe 2", "Classe 3"];
-                var dataValues = [30, 25, 28];
+            // Données du graphique en barres
+            var data = {
+                labels: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+                        "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+                datasets: [{
+                    label: 'Montant devis par mois et année',
+                    data: [],
+                    backgroundColor: ["blue"]
+                }]
+            };
 
-                var data = {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Nombre d\'élèves par classe',
-                        data: dataValues,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                };
+            /*[# th:each="stat : ${statistiques}"]*/
+            data.datasets[0].data.push(/*[[${stat.totalMontant}]]*/); // Ajouter le nombre comme donnée
+            /*[/]*/
 
-                var options = {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            stepSize: 1
+            // Options du graphique en barres
+            var options = {
+                responsive: false, // Rendre le graphique réactif
+                maintainAspectRatio: false, // Maintenir le rapport d'aspect
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true, // Débuter l'axe y à zéro
+                            stepSize: 10 // Intervalles de 10 en 10 sur l'axe y
                         }
-                    }
-                };
+                    }]
+                }
+            };
 
-                // Création du graphique en barres
-                var ctx = document.getElementById("barChart").getContext("2d");
-                var myBarChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: data,
-                    options: options
-                });
+            // Création du graphique en barres
+            var ctx = document.getElementById("barChart").getContext("2d");
+            var myBarChart = new Chart(ctx, {
+                type: 'bar', // Type de graphique en barres
+                data: data,
+                options: options
+            });
         </script>
     </div>
         

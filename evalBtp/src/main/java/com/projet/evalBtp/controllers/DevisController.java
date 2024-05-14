@@ -33,6 +33,7 @@ import com.projet.evalBtp.services.VDetailsDevisUserService;
 import com.projet.evalBtp.services.VDevisEnCoursService;
 import com.projet.evalBtp.services.VPdfDevisService;
 import com.projet.evalBtp.services.VPrixMaisonService;
+import com.projet.evalBtp.services.VStatMontantDevisMoisAnneeService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -63,6 +64,9 @@ public class DevisController {
 
     @Autowired
     private VDevisEnCoursService vDevisEnCoursService;
+
+    @Autowired
+    private VStatMontantDevisMoisAnneeService vStatMontantDevisMoisAnneeService;
 
     @Role(value = {"BTP", "CLIENT"})
     @GetMapping("/liste-devis-client")
@@ -189,11 +193,13 @@ public class DevisController {
 
     @Role(value = {"BTP"})
     @GetMapping("/dashboard")
-    public ModelAndView dashboard()
+    public ModelAndView dashboard(@RequestParam(defaultValue = "2024") int annee)
     {
         ModelAndView mv = new ModelAndView("pages/dashboard");
 
         mv.addObject("montantTotalDevis", devisService.montantTotalDevis());
+        mv.addObject("statistiques", vStatMontantDevisMoisAnneeService.getStatMontantByAnnee(annee));
+        mv.addObject("annee", annee); 
 
         return mv;
     }
