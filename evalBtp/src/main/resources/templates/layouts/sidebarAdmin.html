@@ -33,6 +33,43 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="mb-1 group">
+                        <a href="" class="flex items-center py-2 px-4 text-gray-100 rounded-md hover:bg-teal-700 group-[.selected]:bg-teal-800 group-[.selected]:text-white sidebar-dropdown-toggle">
+                            <span class="text-sm font-normal">Travaux</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-auto group-[.selected]:rotate-180">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>                          
+                        </a>
+                        <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+                            <li class="mb-4">
+                                <a th:href="@{/travaux/page-all-travaux}" class="flex items-center text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>  
+                                    <span class="text-sm font-normal">Liste type travaux</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="" class="flex items-center py-2 px-4 text-gray-100 rounded-md hover:bg-teal-700 group-[.selected]:bg-teal-800 group-[.selected]:text-white sidebar-dropdown-toggle">
+                            <span class="text-sm font-normal">Finition</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-auto group-[.selected]:rotate-180">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>                          
+                        </a>
+                        <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+                            <li class="mb-4">
+                                <a th:href="@{/finition/page-all-finition}" class="flex items-center text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>  
+                                    <span class="text-sm font-normal">Liste type finition</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

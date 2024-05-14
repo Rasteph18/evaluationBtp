@@ -29,6 +29,7 @@ import com.projet.evalBtp.models.VPdfDevis;
 import com.projet.evalBtp.security.Role;
 import com.projet.evalBtp.services.DevisService;
 import com.projet.evalBtp.services.FinitionService;
+import com.projet.evalBtp.services.PayementDevisService;
 import com.projet.evalBtp.services.VDetailsDevisUserService;
 import com.projet.evalBtp.services.VDevisEnCoursService;
 import com.projet.evalBtp.services.VPdfDevisService;
@@ -67,6 +68,9 @@ public class DevisController {
 
     @Autowired
     private VStatMontantDevisMoisAnneeService vStatMontantDevisMoisAnneeService;
+
+    @Autowired
+    private PayementDevisService payementDevisService;
 
     @Role(value = {"BTP", "CLIENT"})
     @GetMapping("/liste-devis-client")
@@ -199,6 +203,7 @@ public class DevisController {
 
         mv.addObject("montantTotalDevis", devisService.montantTotalDevis());
         mv.addObject("statistiques", vStatMontantDevisMoisAnneeService.getStatMontantByAnnee(annee));
+        mv.addObject("montantTotalPaiementEffectue", payementDevisService.montantTotalPaiementEffectue());
         mv.addObject("annee", annee); 
 
         return mv;

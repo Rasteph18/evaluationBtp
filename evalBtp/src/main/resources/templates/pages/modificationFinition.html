@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebarAdmin}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Modification finition</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div id="toast" class="hidden absolute top-4 right-5 rounded-md bg-red-200 text-red-800 py-2 px-5 max-w-md" th:text="${errorMessage}"></div> 
+        <div class="flex justify-center mb-6">
+            <h3>Modification finition</h3>
+        </div>
+
+        <div class="w-full flex justify-center mt-8">
+            <div class="form-card">
+                <form th:action="@{/finition/modif-finition}" method="post">
+                    <input type="hidden" name="id" th:value="${finition.id}">
+                    <input type="hidden" name="etat" th:value="${finition.etat}">
+
+                    <div class="input-field">
+                        <label for="nom" class="label">Nom</label>
+                        <input type="text" name="nom" id="nom" th:value="${finition.nom}" class="input" required>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="marge" class="label">Marge</label>
+                        <input type="number" name="marge" id="marge" th:value="${finition.marge}" class="input" required>
+                    </div>
+
+
+                    <div class="flex justify-center">
+                        <button type="submit" class="btn">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

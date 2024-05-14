@@ -33,7 +33,7 @@ CREATE TABLE type_travaux(
 
 CREATE TABLE travaux(
     id SERIAL PRIMARY KEY,
-    id_type_travaux INT NOT NULL,
+    id_type_travaux INT,
     code VARCHAR(255) NOT NULL,
     nom_travaux VARCHAR(255) NOT NULL,
     id_unite INT,

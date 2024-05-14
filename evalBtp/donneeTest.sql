@@ -1,6 +1,6 @@
 -- donnees test
 
-INSERT INTO utilisateur (mail, password, role, etat) VALUES ('root@gmail.com', 'root', 10, 0);
+INSERT INTO utilisateur (mail, password, role, etat) VALUES ('admin@gmail.com', 'admin', 10, 0);
 
 
 -- Données de test pour la table finitions

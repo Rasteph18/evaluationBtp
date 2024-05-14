@@ -471,6 +471,7 @@ h4 {
 }
 
 table {
+  width: 100%;
   table-layout: auto;
   border-collapse: collapse;
 }
@@ -793,6 +794,10 @@ form > :not([hidden]) ~ :not([hidden]) {
   margin-top: 1.5rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -1024,6 +1029,10 @@ form > :not([hidden]) ~ :not([hidden]) {
   padding: 1rem;
 }
 
+.p-5 {
+  padding: 1.25rem;
+}
+
 .px-24 {
   padding-left: 6rem;
   padding-right: 6rem;
@@ -1122,6 +1131,11 @@ form > :not([hidden]) ~ :not([hidden]) {
   color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
+.text-orange-500 {
+  --tw-text-opacity: 1;
+  color: rgb(249 115 22 / var(--tw-text-opacity));
+}
+
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
@@ -1130,6 +1144,11 @@ form > :not([hidden]) ~ :not([hidden]) {
 .text-slate-400 {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+.text-teal-500 {
+  --tw-text-opacity: 1;
+  color: rgb(20 184 166 / var(--tw-text-opacity));
 }
 
 .text-white {

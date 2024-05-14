@@ -52,7 +52,8 @@ SELECT
     d.montant AS montant_total, 
     d.duree,
     d.date_debut_travaux,  
-    COALESCE(SUM(pd.montant), 0) AS deja_payer
+    COALESCE(SUM(pd.montant), 0) AS deja_payer,
+    (COALESCE(SUM(pd.montant), 0) * 100) / d.montant AS pourcentage_effectue
 FROM 
     devis d
 LEFT JOIN 
@@ -68,5 +69,4 @@ GROUP BY
     f.nom, 
     d.montant, 
     d.duree,
-    d.date_debut_travaux
-HAVING d.montant > COALESCE(SUM(pd.montant), 0);
+    d.date_debut_travaux;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebarAdmin}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Liste Finition</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div class="flex justify-center mb-6">
+            <h3>Liste des finitions</h3>
+        </div>
+
+
+        <div class="w-full mt-5">
+            <div class="flex justify-center mt-4">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Marge</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="finition : ${allFinition}">
+                            <td th:text="${finition.nom}"></td>
+                            <td th:text="${#numbers.formatDecimal(finition.marge, 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td>
+                                <a th:href="@{/finition/page-modif-finition(idFinition=${finition.id})}" class="btn bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">Modifier</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="flex justify-center items-center mt-3" th:if="${nbPage > 0}">
+                <!-- Bouton précédent -->
+                <a th:if="${numPage > 0}" th:href="@{/finition/page-all-finition(numPage=${numPage - 1})}" class="btn">Précédent</a>
+                
+                <div class="mx-2" th:each="i,iterStat : ${#numbers.sequence(0, nbPage-1)}" th:if="${iterStat.index < 4 or iterStat.index == numPage or iterStat.index > nbPage - 5}">
+                    <a th:href="@{/finition/page-all-finition(numPage=${i})}" th:text="${i+1}" th:class="'p-2 text-black bg-slate-100 border rounded-md' + ${numPage == i.intValue() ? ' bg-teal-600 text-white border-none' : ''}"></a>
+                </div>
+                
+                <!-- Bouton suivant -->
+                <a th:if="${numPage < nbPage - 1}" th:href="@{/finition/page-all-finition(numPage=${numPage + 1})}" class="btn">Suivant</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

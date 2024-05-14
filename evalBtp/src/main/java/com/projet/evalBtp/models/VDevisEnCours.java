@@ -21,7 +21,9 @@ public class VDevisEnCours {
     private double duree;
     private Date dateDebutTravaux;
     private double dejaPayer;
+    private double pourcentageEffectue;
 
+    
     @Transient
     private Date dateFinTravaux;
 
@@ -96,6 +98,12 @@ public class VDevisEnCours {
     }
     public void setDejaPayer(double dejaPayer) {
         this.dejaPayer = dejaPayer;
+    }
+    public double getPourcentageEffectue() {
+        return pourcentageEffectue;
+    }
+    public void setPourcentageEffectue(double pourcentageEffectue) {
+        this.pourcentageEffectue = pourcentageEffectue;
     }
 
     public Date getDateFinTravaux() {

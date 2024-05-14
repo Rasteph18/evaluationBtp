@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Finition {
+public class Unite {
     
     @Id
     @GeneratedValue(
@@ -14,24 +14,22 @@ public class Finition {
     )
     private int id;
     private String nom;
-    private double marge;
     private int etat;
 
 
-
-    public Finition() 
+    public Unite() 
     {
 
     }
 
+    
 
-
-    public Finition(int id, String nom, double marge, int etat) throws Exception {
+    public Unite(int id, String nom, int etat) {
         setId(id);
         setNom(nom);
-        setMarge(marge);
         setEtat(etat);
     }
+
 
 
     public int getId() {
@@ -43,21 +41,8 @@ public class Finition {
     public String getNom() {
         return nom;
     }
-    public void setNom(String nom) throws Exception {
-        if (nom != null && !nom.trim().isEmpty()) {
-            this.nom = nom;
-        } else {
-            throw new Exception("Entrez le nom finition");
-        }
-    }
-    public double getMarge() {
-        return marge;
-    }
-    public void setMarge(double marge) throws Exception {
-        if (marge < 0) {
-            throw new Exception("Le marge doit etre positif");
-        }
-        this.marge = marge;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
     public int getEtat() {
         return etat;
@@ -65,6 +50,4 @@ public class Finition {
     public void setEtat(int etat) {
         this.etat = etat;
     }
-
-
 }

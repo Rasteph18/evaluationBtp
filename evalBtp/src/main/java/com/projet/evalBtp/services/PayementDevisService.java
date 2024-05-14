@@ -41,4 +41,14 @@ public class PayementDevisService {
 
         return somme;
     }
+
+    public double montantTotalPaiementEffectue()
+    {
+        String requete = "SELECT SUM(montant) FROM payement_devis";
+        Query query = entityManager.createNativeQuery(requete);
+
+        double somme = Double.parseDouble(query.getSingleResult().toString());
+
+        return somme;
+    }
 }
