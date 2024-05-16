@@ -23,6 +23,7 @@ import java.util.Date;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
+import com.projet.evalBtp.models.PayementDevis;
 import com.projet.evalBtp.models.Utilisateur;
 import com.projet.evalBtp.models.VDevisEnCours;
 import com.projet.evalBtp.models.VPdfDevis;
@@ -38,6 +39,8 @@ import com.projet.evalBtp.services.VStatMontantDevisMoisAnneeService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("devis")
@@ -102,7 +105,7 @@ public class DevisController {
 
     @Role(value = {"BTP", "CLIENT"})
     @PostMapping("/insert-nouveau-devis")
-    public ModelAndView insertNouveauDevis(@RequestParam String typeMaison, @RequestParam String typeFinition, @RequestParam String dateDebut, HttpSession session)
+    public ModelAndView insertNouveauDevis(@RequestParam String typeMaison, @RequestParam String typeFinition, @RequestParam String dateDebut, @RequestParam(required = false) String lieu, HttpSession session)
     {
         ModelAndView mv = new ModelAndView("redirect:/devis/liste-devis-client");
 
@@ -111,7 +114,7 @@ public class DevisController {
             int idTypeMaison = Integer.parseInt(typeMaison);
             int idTypeFInition = Integer.parseInt(typeFinition);
 
-            devisService.insertDevisEtDevisTravaux(idTypeMaison, idTypeFInition, user.getId(), dateDebut);
+            devisService.insertDevisEtDevisTravaux(idTypeMaison, idTypeFInition, user.getId(), dateDebut, lieu);
 
         } catch (Exception e) {
             mv.addObject("errorMessage", e.getMessage());
@@ -132,6 +135,16 @@ public class DevisController {
             Context context = new Context();
             model.addAttribute("detailsDevis", vDetailsDevisUserService.getById(idDevis));
             model.addAttribute("detailsTravaux", vPdfDevisService.getAllDetailsDevisByIdDevis(idDevis));
+
+
+            double sommePayer = 0;
+            List<PayementDevis> listePayementDevis = payementDevisService.getByIdDevis(idDevis); 
+            for (int i = 0; i < listePayementDevis.size(); i++) {
+                sommePayer = sommePayer + listePayementDevis.get(i).getMontant();
+            }
+
+            model.addAttribute("listePayement", listePayementDevis);
+            model.addAttribute("sommePayer", sommePayer);
 
             context.setVariables(model.asMap());
 

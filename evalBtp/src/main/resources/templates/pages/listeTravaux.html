@@ -31,7 +31,7 @@
                             <td th:text="${travaux.code}"></td>
                             <td th:text="${travaux.nomTravaux}"></td>
                             <td th:text="${travaux.unite.nom}"></td>
-                            <td th:text="${#numbers.formatDecimal(travaux.prixUnitaire, 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(travaux.prixUnitaire, 1, 'COMMA', 2, 'POINT')} + ' Ar'"></td>
                             <td>
                                 <a th:href="@{/travaux/page-modif-travaux(idTravaux=${travaux.id})}" class="btn bg-blue-600 hover:bg-blue-700 focus:ring-blue-500">Modifier</a>
                             </td>

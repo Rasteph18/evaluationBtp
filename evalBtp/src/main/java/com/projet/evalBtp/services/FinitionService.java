@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet.evalBtp.models.Finition;
 import com.projet.evalBtp.repository.FinitionRepository;
@@ -34,5 +35,12 @@ public class FinitionService {
     public void saveFinition(Finition finition)
     {
         finitionRepository.save(finition);
+    }
+
+
+    @Transactional
+    public void importFinition()
+    {
+        finitionRepository.importFinition();
     }
 }

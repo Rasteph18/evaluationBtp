@@ -67,7 +67,150 @@ VALUES
 (3, 13, 2),
 (3, 14, 1);
 
--- Données de test pour la table deviss
-INSERT INTO devis (numero_devis, idmaison, idfinition, iduser, montant, finition, duree, date_devis, date_debut_travaux, etat_devis) 
-VALUES 
-('DEV001', 1, 2, 2, 10000.00, 5, 320, '2024-05-01 08:00:00', '2024-10-01 08:00:00', 0);
+
+-- INSERT INTO maison (nom, description, duree_construction, surface)
+-- SELECT type_maison, description, CAST(duree_travaux AS DOUBLE PRECISION), CAST(surface AS DOUBLE PRECISION) FROM csv_maison_travaux
+-- GROUP BY  type_maison, description, CAST(duree_travaux AS DOUBLE PRECISION), CAST(surface AS DOUBLE PRECISION);
+
+-- INSERT INTO unite (nom) 
+-- SELECT unite FROM csv_maison_travaux
+-- GROUP BY unite;
+
+-- INSERT INTO travaux (code, nom_travaux, id_unite, prix_unitaire)
+-- SELECT code_travaux, type_travaux, u.id , CAST(prix_unitaire AS DOUBLE PRECISION) FROM csv_maison_travaux cmt
+-- JOIN unite u ON cmt.unite = u.nom
+-- GROUP BY code_travaux, type_travaux, u.id , CAST(prix_unitaire AS DOUBLE PRECISION);
+
+-- INSERT INTO maison_travaux (id_maison, id_travaux, quantite)
+-- SELECT m.id, t.id, CAST(quantite AS DOUBLE PRECISION)
+-- FROM csv_maison_travaux cmt
+-- JOIN maison m ON cmt.type_maison = m.nom
+-- JOIN travaux t ON cmt.type_travaux = t.nom_travaux
+-- GROUP BY id_maison, id_travaux, quantite;
+
+-- INSERT INTO finition (nom, marge)
+-- SELECT finition, CAST(taux_finition AS DOUBLE PRECISION) FROM csv_devis
+-- GROUP BY finition, CAST(taux_finition AS DOUBLE PRECISION);
+
+
+-- INSERT INTO devis (numero, id_maison, id_finition, id_user, montant, pourcentage_finition, duree, date_devis, date_debut_travaux, lieu)
+-- SELECT ref_devis, m.id, f.id, u.id, CAST(taux_finition AS DOUBLE PRECISION), CAST(m.duree_construction AS DOUBLE PRECISION), to_timestamp(date_devis, 'YYYY-MM-DD hh24:mi:ss')::timestamp, CAST(date_debut_travaux AS DATE), lieu FROM csv_devis cd
+-- JOIN maison m ON cd.type_maison = m.nom
+-- JOIN finition f ON cd.finition = f.nom
+-- JOIN utilisateur u ON cd.client = u.numero
+
+
+
+
+-- INSERT INTO payement_devis (id_devis, referencement, montant, date_payement)
+-- SELECT d.id, ref_paiement, CAST(cp.montant AS DOUBLE PRECISION), to_timestamp(date_paiement, 'YYYY-MM-DD hh24:mi:ss')::timestamp
+-- FROM csv_paiement cp
+-- JOIN devis d ON cp.ref_devis = d.numero;
+
+
+
+INSERT INTO maison (nom, description, duree_construction, surface)
+SELECT
+DISTINCT cmt.type_maison, cmt.description,
+CAST(cmt.duree_travaux AS DOUBLE PRECISION),
+CAST(cmt.surface AS DOUBLE PRECISION)
+FROM csv_maison_travaux cmt
+LEFT JOIN maison m ON m.nom = cmt.type_maison
+WHERE m.id IS NULL;
+
+
+
+INSERT INTO unite (nom)
+SELECT
+DISTINCT cmt.unite
+FROM csv_maison_travaux cmt
+LEFT JOIN unite u ON u.nom = cmt.unite
+WHERE u.id IS NULL;
+
+
+
+INSERT INTO travaux (code, nom_travaux, id_unite, prix_unitaire)
+SELECT
+DISTINCT code_travaux,
+type_travaux,
+u.id,
+CAST(cmt.prix_unitaire AS DOUBLE PRECISION)
+FROM csv_maison_travaux cmt
+JOIN unite u ON u.nom = cmt.unite;
+
+
+INSERT INTO maison_travaux (id_maison, id_travaux, quantite)
+SELECT
+m.id, t.id, CAST(quantite AS DOUBLE PRECISION)
+FROM csv_maison_travaux cmt
+JOIN maison m ON m.nom = cmt.type_maison
+JOIN travaux t ON t.nom_travaux = cmt.type_travaux;
+
+
+INSERT INTO utilisateur(numero)
+SELECT
+DISTINCT client
+FROM csv_devis cd
+LEFT JOIN utilisateur u ON u.numero = cd.client
+WHERE u.id IS NULL;
+
+
+INSERT INTO finition (nom, marge)
+SELECT 
+DISTINCT finition,
+CAST(taux_finition AS DOUBLE PRECISION)
+FROM csv_devis cd
+LEFT JOIN finition f ON f.nom = finition
+WHERE f.id IS NULL;
+
+
+
+
+
+INSERT INTO devis (numero, id_maison, id_finition, id_user, montant, pourcentage_finition, duree, date_devis, date_debut_travaux, lieu)
+SELECT 
+    ref_devis,
+    m.id,
+    f.id,
+    u.id,
+    vpm.prix + (vpm.prix*f.marge/100),
+    f.marge,
+    vpm.duree_construction,
+    to_timestamp(cd.date_devis, 'DD/MM/YYYY'),
+    to_timestamp(cd.date_debut, 'DD/MM/YYYY'),
+    cd.lieu
+FROM csv_devis cd
+JOIN maison m ON m.nom = cd.type_maison
+JOIN finition f ON f.nom = cd.finition
+JOIN utilisateur u ON u.numero = cd.client
+JOIN V_prix_maison vpm ON vpm.id = m.id
+LEFT JOIN devis d ON d.numero = cd.ref_devis
+WHERE d.id IS NULL;
+
+
+
+
+
+INSERT INTO devis_travaux (id_devis, id_travaux, prix_unitaire, quantite)
+SELECT 
+    d.id,
+    t.id,
+    t.prix_unitaire,
+    mt.quantite
+FROM csv_devis cd
+JOIN devis d ON d.numero = cd.ref_devis
+JOIN maison_travaux mt ON mt.id_maison = d.id_maison
+JOIN travaux t ON t.id = mt.id_travaux;
+
+
+
+INSERT INTO payement_devis (referencement, id_devis, montant, date_payement)
+SELECT 
+    cp.ref_paiement,
+    d.id,
+    CAST(cp.montant AS DOUBLE PRECISION),
+    to_timestamp(date_paiement, 'DD/MM/YYYY')
+FROM csv_paiement cp
+JOIN devis d ON d.numero = cp.ref_devis
+LEFT JOIN payement_devis pd ON pd.referencement = cp.ref_paiement
+WHERE pd.id IS NULL;

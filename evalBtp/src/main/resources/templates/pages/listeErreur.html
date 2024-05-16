@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebarAdmin}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Liste erreur</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div class="flex justify-center mb-6">
+            <h3>Liste erreurs</h3>
+        </div>
+
+
+        <div class="w-full flex justify-center">
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th>Ligne</th>
+                        <th>Erreur</th>
+                        <th>Au fichier</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="erreur : ${listeErreur}">
+                        <td th:text="${erreur.ligne}"></td>
+                        <td th:text="${erreur.messageErreur}"></td>
+                        <td th:text="${erreur.nomFichier}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

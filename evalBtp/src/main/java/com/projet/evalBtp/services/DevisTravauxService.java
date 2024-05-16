@@ -25,4 +25,10 @@ public class DevisTravauxService {
     {
         devisTravauxRepository.saveAll(listeDevisTravaux);
     }
+
+    @Transactional
+    public void importDevisTravaux()
+    {
+        devisTravauxRepository.importDevisTravaux();
+    }
 }

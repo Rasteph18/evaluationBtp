@@ -15,6 +15,7 @@ public class VDevisEnCours {
     @Id
     private int id;
     private int idUser;
+    private String numero;
     private String typeMaison;
     private String typeFinition;
     private double montantTotal;
@@ -36,10 +37,11 @@ public class VDevisEnCours {
     
 
 
-    public VDevisEnCours(int id, int idUser, String typeMaison, String typeFinition, double montantTotal, double duree,
+    public VDevisEnCours(int id, int idUser, String numero, String typeMaison, String typeFinition, double montantTotal, double duree,
             Date dateDebutTravaux, double dejaPayer) {
         setId(id);
         setIdUser(idUser);
+        setNumero(numero);
         setTypeMaison(typeMaison);
         setTypeFinition(typeFinition);
         setMontantTotal(montantTotal);
@@ -62,6 +64,12 @@ public class VDevisEnCours {
     }
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+    public String getNumero() {
+        return numero;
+    }
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
     public String getTypeMaison() {
         return typeMaison;

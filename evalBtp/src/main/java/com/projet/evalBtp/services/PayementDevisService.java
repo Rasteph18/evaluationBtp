@@ -1,8 +1,10 @@
 package com.projet.evalBtp.services;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet.evalBtp.models.PayementDevis;
 import com.projet.evalBtp.repository.PayementDevisRepository;
@@ -44,11 +46,24 @@ public class PayementDevisService {
 
     public double montantTotalPaiementEffectue()
     {
-        String requete = "SELECT SUM(montant) FROM payement_devis";
+        String requete = "SELECT COALESCE(SUM(montant), 0) FROM payement_devis";
         Query query = entityManager.createNativeQuery(requete);
 
         double somme = Double.parseDouble(query.getSingleResult().toString());
 
         return somme;
+    }
+
+
+    @Transactional
+    public void importPayementDevis()
+    {
+        payementDevisRepository.importPayementDevis();
+    }
+
+
+    public List<PayementDevis> getByIdDevis(int idDevis)
+    {
+        return payementDevisRepository.findByIdDevis(idDevis);
     }
 }

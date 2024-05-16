@@ -69,15 +69,16 @@ public class Utilisateur {
     }
     public void setNumero(String numero)throws Exception {
         if (numero != null && !numero.trim().isEmpty()) {
-            String regex = "(0|261)?(32|33|34|38)[0-9]{7}";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(numero);
+            // String regex = "(0|261)?(32|33|34|38)[0-9]{7}";
+            // Pattern pattern = Pattern.compile(regex);
+            // Matcher matcher = pattern.matcher(numero);
 
-            if (matcher.matches()) {
-                this.numero = numero;
-            } else {
-                throw new Exception(numero + " n'est pas un numéro de téléphone malgache valide.");
-            }
+            // if (matcher.matches()) {
+            //     this.numero = numero;
+            // } else {
+            //     throw new Exception(numero + " n'est pas un numéro de téléphone malgache valide.");
+            // }
+            this.numero = numero;
         } else {
             throw new Exception("Entrez votre numero");
         }

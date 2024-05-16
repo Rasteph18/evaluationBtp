@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet.evalBtp.models.Unite;
 import com.projet.evalBtp.repository.UniteRepository;
@@ -23,5 +24,11 @@ public class UniteService {
     public Unite getUniteById(int id)
     {
         return uniteRepository.findById(id).get();
+    }
+
+    @Transactional
+    public void importUnite()
+    {
+        uniteRepository.importUnite();
     }
 }

@@ -47,6 +47,7 @@ CREATE OR REPLACE VIEW V_devis_en_cours AS
 SELECT 
     d.id, 
     d.id_user, 
+    d.numero,
     m.nom AS type_maison, 
     f.nom AS type_finition, 
     d.montant AS montant_total, 

@@ -25,6 +25,7 @@ public class Devis {
     private double duree;
     private LocalDateTime dateDevis;
     private Date dateDebutTravaux;
+    private String lieu;
     private int etat;
 
 
@@ -36,7 +37,7 @@ public class Devis {
 
 
     public Devis(int id, String numero, int idMaison, int idFinition, int idUser, double montant,
-            double pourcentageFinition, double duree, LocalDateTime dateDevis, Date dateDebutTravaux, int etat) {
+            double pourcentageFinition, double duree, LocalDateTime dateDevis, Date dateDebutTravaux, String lieu, int etat) {
         setId(id);
         setNumero(numero);
         setIdMaison(idMaison);
@@ -47,6 +48,7 @@ public class Devis {
         setDuree(duree);
         setDateDevis(dateDevis);
         setDateDebutTravaux(dateDebutTravaux);
+        setLieu(lieu);
         setEtat(etat);
     }
 
@@ -112,6 +114,12 @@ public class Devis {
     }
     public void setDateDebutTravaux(Date dateDebutTravaux) {
         this.dateDebutTravaux = dateDebutTravaux;
+    }
+    public String getLieu() {
+        return lieu;
+    }
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
     }
     public int getEtat() {
         return etat;

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layouts/sidebarAdmin}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Import donnée Paiement</title>
+</head>
+<body>
+    <div class="w-[calc(100%-256px)] min-h-screen ml-64 bg-gray-50 p-3" layout:fragment="content">
+        <div class="flex justify-center mb-6">
+            <h3>Importation paiement</h3>
+        </div>
+
+
+        <div class="w-full flex justify-center">
+            <div class="form-card">
+                <form th:action="@{/import/import-paiement}" method="post" enctype="multipart/form-data">
+                    <div class="input-field">
+                        <input type="file" name="paiement" id="paiement">
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button type="submit" class="btn">Importer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

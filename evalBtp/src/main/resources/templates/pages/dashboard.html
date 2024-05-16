@@ -18,7 +18,7 @@
                     <h4>Montant Total des devis</h4>
                 </div>
                 <div class="flex justify-center mt-4">
-                    <h2 th:text="${#numbers.formatDecimal(montantTotalDevis, 1, 'COMMA', 2, 'POINT')}" class="text-teal-500"></h2>
+                    <h2 th:text="${#numbers.formatDecimal(montantTotalDevis, 1, 'COMMA', 2, 'POINT')} + ' Ar'" class="text-teal-500"></h2>
                 </div>
             </div>
             <div class="border shadow rounded-md p-5">
@@ -26,7 +26,7 @@
                     <h4>Montant Total de paiement effectué</h4>
                 </div>
                 <div class="flex justify-center mt-4">
-                    <h2 th:text="${#numbers.formatDecimal(montantTotalPaiementEffectue, 1, 'COMMA', 2, 'POINT')}" class="text-orange-500"></h2>
+                    <h2 th:text="${#numbers.formatDecimal(montantTotalPaiementEffectue, 1, 'COMMA', 2, 'POINT')} + ' Ar'" class="text-orange-500"></h2>
                 </div>
             </div>
         </div>

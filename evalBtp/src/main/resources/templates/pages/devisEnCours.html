@@ -11,13 +11,13 @@
         <div class="flex justify-center mb-6">
             <h3>Liste des devis en cours</h3>
         </div>
-        <a th:href="@{/devis/dashboard}">dashboard</a>
 
         <div class="w-full mt-5">
             <div class="flex justify-center mt-4">
                 <table>
                     <thead>
                         <tr>
+                            <th>Référence</th>
                             <th>Type maison</th>
                             <th>Type finition</th>
                             <th>Date début travaux</th>
@@ -29,13 +29,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="devis : ${listeDevis}">
+                    </thead>
+                        <tr th:each="devis : ${listeDevis}" th:class="${devis.pourcentageEffectue > 50 ? 'bg-green-500' : devis.pourcentageEffectue < 50 ? 'bg-red-600' : ''}">
+                            <td th:text="${devis.numero}"></td>
                             <td th:text="${devis.typeMaison}"></td>
                             <td th:text="${devis.typeFinition}"></td>
                             <td th:text="${#dates.format(devis.dateDebutTravaux, 'dd MMMM yyyy')}"></td>
                             <td th:text="${#dates.format(devis.dateFinTravaux, 'dd MMMM yyyy')}"></td>
-                            <td th:text="${#numbers.formatDecimal(devis.montantTotal, 1, 'COMMA', 2, 'POINT')}"></td>
-                            <td th:text="${#numbers.formatDecimal(devis.dejaPayer, 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(devis.montantTotal, 1, 'COMMA', 2, 'POINT')} + ' Ar'"></td>
+                            <td th:text="${#numbers.formatDecimal(devis.dejaPayer, 1, 'COMMA', 2, 'POINT')} + ' Ar'"></td>
                             <td th:th:text="${#numbers.formatDecimal(devis.pourcentageEffectue, 1, 'COMMA', 2, 'POINT')}"></td>
                             <td>
                                 <a th:href="@{/devis/page-travaux-a-effectuer(idDevis=${devis.id})}" class="btn">Details</a>

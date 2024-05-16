@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.projet.evalBtp.models.Travaux;
 import com.projet.evalBtp.repository.TravauxRepository;
@@ -27,5 +28,11 @@ public class TravauxService {
     public void saveTravaux(Travaux travaux)
     {
         travauxRepository.save(travaux);
+    }
+
+    @Transactional
+    public void importTravaux()
+    {
+        travauxRepository.importTravaux();
     }
 }

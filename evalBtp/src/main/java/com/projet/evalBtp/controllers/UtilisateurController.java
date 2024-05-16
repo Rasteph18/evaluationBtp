@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.projet.evalBtp.models.Utilisateur;
+import com.projet.evalBtp.security.Role;
 import com.projet.evalBtp.services.UtilisateurService;
 
 import jakarta.servlet.http.HttpSession;
@@ -93,9 +94,28 @@ public class UtilisateurController {
         return mv;
     }
 
-    @GetMapping("/log-out")
-    public void logOut(HttpSession session)
+    @Role(value = {"BTP","CLIENT"})
+    @GetMapping("/normal/log-out")
+    public String logOut(HttpSession session)
     {
-        session.setAttribute("user", null);
+        session.removeAttribute("user");
+
+        return "redirect:/";
+    }
+
+
+    @Role(value = {"BTP"})
+    @GetMapping("/admin/log-out")
+    public String logOutAdmin(HttpSession session)
+    {
+        session.removeAttribute("user");
+
+        return "redirect:/user/page-login-admin";
+    }
+
+    @GetMapping("/erreur")
+    public String nonAutoriser()
+    {
+        return "pages/notAuthorized";
     }
 }

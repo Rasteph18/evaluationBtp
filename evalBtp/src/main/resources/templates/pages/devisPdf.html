@@ -56,5 +56,31 @@
             </table>
         </div>
     </div>
+
+
+
+    <div class="mt-4 text-center">
+        <div class="inline-block">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Referencement</th>
+                        <th>Montant</th>
+                        <th>Date payement</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr th:each="payement : ${listePayement}">
+                        <td th:text="${payement.referencement}"></td>
+                        <td th:text="${#numbers.formatDecimal(payement.montant, 1, 'COMMA', 2, 'POINT')} + ' Ar'"></td>
+                        <td th:text="${#temporals.format(payement.datePayement, 'dd MMMM yyyy')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Somme payer: <span th:text="${#numbers.formatDecimal(sommePayer, 1, 'COMMA', 2, 'POINT')} + ' Ar'"></span></p>
+    </div>
 </body>
 </html>

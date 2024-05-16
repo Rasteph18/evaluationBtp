@@ -17,6 +17,7 @@ public class PayementDevis {
     )
     private int id;
     private int idDevis;
+    private String referencement;
     private double montant;
     private LocalDateTime datePayement;
     private int etat;
@@ -29,9 +30,10 @@ public class PayementDevis {
 
 
 
-    public PayementDevis(int id, int idDevis, double montant, LocalDateTime datePayement, int etat) throws Exception {
+    public PayementDevis(int id, int idDevis, String referencement, double montant, LocalDateTime datePayement, int etat) throws Exception {
         setId(id);
         setIdDevis(idDevis);
+        setReferencement(referencement);
         setMontant(montant);
         setDatePayement(datePayement);
         setEtat(etat);
@@ -57,6 +59,12 @@ public class PayementDevis {
         } catch (Exception e) {
             throw new Exception("L'id devis doit etre de type nombre");
         }
+    }
+    public String getReferencement() {
+        return referencement;
+    }
+    public void setReferencement(String referencement) {
+        this.referencement = referencement;
     }
     public double getMontant() {
         return montant;

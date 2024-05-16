@@ -47,7 +47,7 @@ public class DevisService {
     private TravauxService travauxService;
 
     @Transactional
-    public Devis insertDevis(int idMaison, int idFinition, int idUser, String dateDebutTravaux)
+    public Devis insertDevis(int idMaison, int idFinition, int idUser, String dateDebutTravaux, String lieu) throws Exception
     {
         VPrixMaison maison = vPrixMaisonService.getByIdMaison(idMaison);
         Finition finition = finitionService.getByIdFinition(idFinition);
@@ -63,17 +63,23 @@ public class DevisService {
         devis.setPourcentageFinition(finition.getMarge());
         devis.setDuree(maison.getDureeConstruction());
         devis.setDateDevis(LocalDateTime.now());
+        if (lieu != null && !lieu.isEmpty()) {
+            devis.setLieu(lieu);
+        }
 
         devis.setDateDebutTravaux(Date.valueOf(LocalDate.parse(dateDebutTravaux)));
+        if (devis.getDateDebutTravaux().before(Date.valueOf(LocalDate.now()))) {
+            throw new Exception("La date de debut du travaux doit etre superieur a aujourd'hui");
+        }
         devis.setEtat(0);
 
         return devisRepository.save(devis);
     }
 
     @Transactional
-    public void insertDevisEtDevisTravaux(int idMaison, int idFinition, int idUser, String dateDebutTravaux)
+    public void insertDevisEtDevisTravaux(int idMaison, int idFinition, int idUser, String dateDebutTravaux, String lieu) throws Exception
     {
-        Devis nouveauDevis = insertDevis(idMaison, idFinition, idUser, dateDebutTravaux);
+        Devis nouveauDevis = insertDevis(idMaison, idFinition, idUser, dateDebutTravaux, lieu);
 
         List<MaisonTravaux> listeMaisonTravaux = maisonTravauxService.getByIdMaison(idMaison);
         List<DevisTravaux> listeDevisTravaux = new ArrayList<DevisTravaux>();
@@ -101,11 +107,18 @@ public class DevisService {
 
     public double montantTotalDevis()
     {
-        String requete = "SELECT SUM(montant) FROM devis";
+        String requete = "SELECT COALESCE(SUM(montant), 0) FROM devis";
         Query query = entityManager.createNativeQuery(requete);
 
         double montantTotal = Double.parseDouble(query.getSingleResult().toString());
 
         return montantTotal;
+    }
+
+
+    @Transactional
+    public void importDevis()
+    {
+        devisRepository.importDevis();
     }
 }

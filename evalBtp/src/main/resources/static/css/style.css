@@ -818,6 +818,10 @@ form > :not([hidden]) ~ :not([hidden]) {
   display: none;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
 .h-4 {
   height: 1rem;
 }
@@ -846,6 +850,10 @@ form > :not([hidden]) ~ :not([hidden]) {
   width: 50%;
 }
 
+.w-24 {
+  width: 6rem;
+}
+
 .w-3\/4 {
   width: 75%;
 }
@@ -872,6 +880,11 @@ form > :not([hidden]) ~ :not([hidden]) {
 
 .w-\[calc\(100\%-256px\)\] {
   width: calc(100% - 256px);
+}
+
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .w-full {
@@ -959,12 +972,25 @@ form > :not([hidden]) ~ :not([hidden]) {
   border-width: 1px;
 }
 
+.border-4 {
+  border-width: 4px;
+}
+
 .border-b-2 {
   border-bottom-width: 2px;
 }
 
+.border-dotted {
+  border-style: dotted;
+}
+
 .border-none {
   border-style: none;
+}
+
+.border-red-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(220 38 38 / var(--tw-border-opacity));
 }
 
 .border-slate-300 {
@@ -987,6 +1013,11 @@ form > :not([hidden]) ~ :not([hidden]) {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
 .bg-orange-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 88 12 / var(--tw-bg-opacity));
@@ -995,6 +1026,11 @@ form > :not([hidden]) ~ :not([hidden]) {
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+}
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .bg-slate-100 {
@@ -1015,6 +1051,10 @@ form > :not([hidden]) ~ :not([hidden]) {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.p-16 {
+  padding: 4rem;
 }
 
 .p-2 {
@@ -1077,6 +1117,10 @@ form > :not([hidden]) ~ :not([hidden]) {
   padding-bottom: 0.5rem;
 }
 
+.pl-6 {
+  padding-left: 1.5rem;
+}
+
 .pl-7 {
   padding-left: 1.75rem;
 }
@@ -1136,6 +1180,11 @@ form > :not([hidden]) ~ :not([hidden]) {
   color: rgb(249 115 22 / var(--tw-text-opacity));
 }
 
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity));
@@ -1162,6 +1211,10 @@ form > :not([hidden]) ~ :not([hidden]) {
 
 .decoration-wavy {
   text-decoration-style: wavy;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
 }
 
 .shadow {

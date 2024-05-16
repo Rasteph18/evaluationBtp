@@ -9,11 +9,20 @@
     <div class="flex">
         <!-- sidebar -->
         <div class="fixed left-0 top-0 h-full w-64 p-4 bg-teal-600">
-            <div class="brand-logo">
+            <div class="brand-logo flex justify-between items-center">
                 <h3 class="flex items-center justify-center text-white underline decoration-wavy">BTP</h3>
+
+                <a th:href="@{/user/admin/log-out}" class="rounded-full border-teal-500 bg-teal-700 p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                    </svg>         
+                </a>
             </div>
         
             <div class="mt-6">
+                <div class="pl-6 rounded-md p-2">
+                    <a th:href="@{/devis/dashboard}" class="text-white">Dashboard</a>
+                </div>
                 <ul>
                     <li class="mb-1 group">
                         <a href="" class="flex items-center py-2 px-4 text-gray-100 rounded-md hover:bg-teal-700 group-[.selected]:bg-teal-800 group-[.selected]:text-white sidebar-dropdown-toggle">
@@ -66,6 +75,51 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                     </svg>  
                                     <span class="text-sm font-normal">Liste type finition</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="mb-1 group">
+                        <a href="" class="flex items-center py-2 px-4 text-gray-100 rounded-md hover:bg-teal-700 group-[.selected]:bg-teal-800 group-[.selected]:text-white sidebar-dropdown-toggle">
+                            <span class="text-sm font-normal">Imporation données</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-auto group-[.selected]:rotate-180">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>                          
+                        </a>
+                        <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+                            <li class="mb-4">
+                                <a th:href="@{/import/maison-travaux-devis}" class="flex items-center text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>  
+                                    <span class="text-sm font-normal">Maison-Travaux-Devis</span>
+                                </a>
+                            </li>
+                            <li class="mb-4">
+                                <a th:href="@{/import/paiement}" class="flex items-center text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>  
+                                    <span class="text-sm font-normal">Paiement</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mb-1 group">
+                        <a href="" class="flex items-center py-2 px-4 text-gray-100 rounded-md hover:bg-teal-700 group-[.selected]:bg-teal-800 group-[.selected]:text-white sidebar-dropdown-toggle">
+                            <span class="text-sm font-normal">Réinitialisation base de données</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 ml-auto group-[.selected]:rotate-180">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            </svg>                          
+                        </a>
+                        <ul class="pl-7 mt-2 hidden group-[.selected]:block">
+                            <li class="mb-4">
+                                <a th:href="@{/database/reset}" class="flex items-center text-gray-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6 mr-2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                    </svg>  
+                                    <span class="text-sm font-normal">Réinitialiser</span>
                                 </a>
                             </li>
                         </ul>
